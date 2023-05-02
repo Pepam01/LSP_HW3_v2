@@ -19,8 +19,7 @@ port (
 	YEND_N   : out std_logic:='0';   -- '0' pulse at the end of y-row
 	LCD_DE   : out std_logic:='0';   -- DataEnable control signal of LCD controller
 	LCD_DCLK : out std_logic:='0';   -- LCD pixel clock, 33 MHz, see note 2 below
-	CLRN    : out std_logic:='0'    -- output of phase-locked loop, after start-up, it changes from 0 -> 1 and remains in 1
-	
+	CLRN    : out std_logic:='0'    -- output of phase-locked loop, after start-up, it changes from 0 -> 1 and remains in 1	
 );
 end entity VeekMT2_LCDgenerator;
 -- Note1: xcolumn counts from 0 to 1023, visible columns from 0 to 799
@@ -43,6 +42,7 @@ end component;
 
 signal pllreset : std_logic;
 signal CLK, CLKshift : std_logic; -- not used in this version, but reserved
+signal start : std_logic;
 
 constant LCD_XCOLUMN_MAX : unsigned(xcolumn'RANGE) := (others=>'1'); 
 constant LCD_YROW_MAX : integer := 524;

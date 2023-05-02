@@ -16,10 +16,19 @@ end;
 
 architecture rtl of VideoProcessor is
 signal cmp : unsigned(9 downto 0) := (others => '0');
+signal start : std_logic := '0';
 
 begin
 
-	addr<= '0' when xcolumn < cmp+(yrow mod 64) else '1';
+	--addr<= '0' when xcolumn < cmp+(yrow mod 128) and start = '0' else '1';
+	addr<= '1' when start = '0' else '0';
+	
+	process(IR_ready)
+	begin
+	if rising_edge(IR_ready) then
+		start <= not start;
+	end if;
+	end process;
 
 	process(YEND_N)
 	variable cntr:unsigned(cmp'RANGE):=(others => '0');
